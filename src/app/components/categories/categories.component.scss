@@ -1,6 +1,17 @@
-* {
-  background-color: lightgreen;
-}
 .categories {
   height: 100%;
+  overflow-y: auto;
+  border-right: 2px solid #c8c2c2;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &-header {
+    font-size: 2rem;
+  }
+
+  &-add {
+    float: right;
+    width: 3rem;
+    height: 3rem;
+  }
 }
