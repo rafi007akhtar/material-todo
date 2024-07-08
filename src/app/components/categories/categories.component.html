@@ -1,1 +1,14 @@
-<div class="categories">categories works!</div>
+<div class="categories">
+  <div class="categories-header">
+    <span>Categories</span>
+    <button mat-mini-fab class="categories-add">➕</button>
+  </div>
+
+  <mat-selection-list role="list" [multiple]="false">
+    @for (cat of allCats(); track cat.name) {
+    <mat-list-option role="listitem" [value]="cat.name" togglePosition="before">
+      {{ cat.name | titlecase }}
+    </mat-list-option>
+    } @empty { Add a category to begin with. }
+  </mat-selection-list>
+</div>
