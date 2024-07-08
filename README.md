@@ -10,7 +10,7 @@ Make sure to use the following from Angular Material for sure. Other items these
 - [ ] `MatFormFieldModule`
 - [ ] `MatSelectModule`
 - [ ] `MatIconModule`
-- [ ] `MatButtonModule`
+- [x] `MatButtonModule`
 - [ ] `MatToolbarModule`
 - [ ] `MatProgressSpinnerModule`
 - [ ] `MatPaginatorModule`
