@@ -1,7 +1,7 @@
 .app {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows: repeat(auto-fit, minmax(1rem, 3rem));
   gap: 1rem;
 
   .nav-bar {
