@@ -11,6 +11,8 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -21,15 +23,10 @@ import { TaskItemComponent } from './components/task-item/task-item.component';
     TopNavComponent,
     NewTaskComponent,
     TaskListComponent,
-    TaskItemComponent
+    TaskItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, MatListModule, MatButtonModule],
+  providers: [provideAnimationsAsync()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
