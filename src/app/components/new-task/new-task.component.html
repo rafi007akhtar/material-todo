@@ -1,1 +1,19 @@
-<div class="new-task">new-task works!</div>
+<div class="new-task">
+  <form
+    class="new-task-form"
+    (ngSubmit)="formSubmit()"
+    [formGroup]="newTaskForm"
+  >
+    <mat-form-field
+      class="new-task-form-field"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>Type new task and press enter</mat-label>
+      <input type="text" matInput formControlName="taskName" />
+      <button class="new-task-btn" mat-icon-button matSuffix>
+        <mat-icon [inline]="true">arrow_circle_right</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</div>
