@@ -4,9 +4,15 @@
 
 .new-task {
   height: 100%;
+  margin-right: 1rem;
 
   &-form-field {
     width: 100%;
+  }
+
+  &-input {
+    height: 3rem !important;
+    resize: none;
   }
 
   &-btn mat-icon {

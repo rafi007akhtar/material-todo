@@ -9,8 +9,16 @@
       appearance="outline"
       subscriptSizing="dynamic"
     >
-      <mat-label>Type new task and press enter</mat-label>
-      <input type="text" matInput formControlName="taskName" />
+      <mat-label>New Task</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="taskName"
+        autofocus
+        (keydown)="onFormEdit($event)"
+        class="new-task-input"
+        placeholder="Type new task and press enter, or click the arrow to the right."
+      />
       <button class="new-task-btn" mat-icon-button matSuffix>
         <mat-icon [inline]="true">arrow_circle_right</mat-icon>
       </button>

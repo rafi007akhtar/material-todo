@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CategoryType } from '../../models/category.model';
+import { Subscription } from 'rxjs';
+import { TaskManagementService } from '../../services/task-management.service';
+import { initCategories } from '../../data/dummy-data';
+import { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-new-task',
@@ -7,17 +12,53 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './new-task.component.scss',
 })
 export class NewTaskComponent implements OnInit {
-  constructor() {}
+  constructor(private tms: TaskManagementService) {}
 
   newTaskForm: FormGroup<any> = new FormGroup({});
+  selectedCategory!: CategoryType;
+  selectedCategorySup: Subscription | undefined;
 
   ngOnInit(): void {
+    this.selectedCategory = this.tms.getSelectedCategorySync();
+
+    this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
+      this.selectedCategory = cat;
+    });
+
     this.newTaskForm = new FormGroup({
-      taskName: new FormControl('', [Validators.required]),
+      taskName: new FormControl(
+        ''
+        // [Validators.required]
+      ),
     });
   }
 
+  onFormEdit(evt: KeyboardEvent) {
+    if (evt.key === 'Enter' && !evt.shiftKey) {
+      this.formSubmit();
+      this.taskNameField?.setValue('');
+    }
+  }
+
   formSubmit() {
-    console.log('form submission clicked');
+    const newTaskName: string = this.taskNameField?.value;
+    if (!newTaskName || !newTaskName.trim().length) {
+      this.taskNameField?.setValue('');
+      return;
+    }
+
+    const taskToAdd: Task = {
+      name: newTaskName.trim(),
+      categoryName: this.selectedCategory.name,
+      id: `${Math.random()}${new Date().toISOString()}`,
+    };
+    this.tms.addTask(taskToAdd);
+    this.taskNameField?.reset();
+    this.taskNameField?.setValue('');
+    this.newTaskForm.reset();
+  }
+
+  get taskNameField() {
+    return this.newTaskForm.get('taskName');
   }
 }
