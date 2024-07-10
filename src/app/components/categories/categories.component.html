@@ -1,14 +1,38 @@
 <div class="categories">
   <div class="categories-header">
-    <span>Categories</span>
-    <button mat-mini-fab class="categories-add">
-      <mat-icon>add_circle</mat-icon>
+    <h2 class="categories-header-title">Categories</h2>
+    <button mat-mini-fab class="categories-add" (click)="addCategoryHandler()">
+      <mat-icon *ngIf="!addingNewCategory()">add_circle</mat-icon>
+      <mat-icon *ngIf="addingNewCategory()">done_outline</mat-icon>
     </button>
   </div>
 
-  <mat-selection-list role="list" [multiple]="false">
-    @for (cat of allCats(); track cat.name) {
-    <mat-list-option role="listitem" [value]="cat.name" togglePosition="before">
+  <mat-form-field class="categories-new" *ngIf="addingNewCategory()">
+    <mat-label>Press enter or tick</mat-label>
+    <input
+      matInput
+      [(ngModel)]="newCategoryName"
+      autofocus
+      #newCatInp
+      (keydown)="onNewCatInputChange($event)"
+    />
+    <button matSuffix mat-icon-button (click)="addNewCategory()">
+      <mat-icon>add_task</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-selection-list
+    role="list"
+    [multiple]="false"
+    (selectionChange)="setSelectedCategory($event)"
+  >
+    @for (cat of allCats; track cat.name) {
+    <mat-list-option
+      role="listitem"
+      [value]="cat.name"
+      togglePosition="before"
+      [selected]="cat.selected"
+    >
       {{ cat.name | titlecase }}
     </mat-list-option>
     } @empty { Add a category to begin with. }
