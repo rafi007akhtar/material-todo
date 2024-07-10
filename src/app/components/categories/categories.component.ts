@@ -33,9 +33,6 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.allCatsSup = this.tms.allCategories$.subscribe((cats) => {
       this.allCats = cats;
     });
-
-    this.tms.setCategories(initCategories);
-    this.tms.setSelectedCategory('Default');
   }
 
   setSelectedCategory(change: MatSelectionListChange) {

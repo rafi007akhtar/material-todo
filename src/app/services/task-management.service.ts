@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Task, Tasks } from '../models/task.model';
 import { CategoriesType, CategoryType } from '../models/category.model';
 import { initCategories } from '../data/dummy-data';
@@ -9,10 +9,10 @@ import { initCategories } from '../data/dummy-data';
 })
 export class TaskManagementService {
   userTasks: Tasks = [];
-  userTasks$ = new Subject<Tasks>();
+  userTasks$ = new BehaviorSubject<Tasks>(this.userTasks);
 
   allCategories = [...initCategories];
-  allCategories$ = new Subject<CategoriesType>();
+  allCategories$ = new BehaviorSubject<CategoriesType>(this.allCategories);
   selectedCategory$ = new Subject<CategoryType>();
 
   constructor() {}
