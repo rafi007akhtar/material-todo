@@ -1,1 +1,8 @@
-<div class="task-list">task-list works!</div>
+<div class="task-list">
+  <h1>Tasks for {{ selectedCategory.name | titlecase }}</h1>
+  @for (task of tasksToShow; track task.id) {
+  <app-task-item [taskName]="task.name"></app-task-item>
+  } @empty {
+  <div>Your added tasks for this category will appear here.</div>
+  }
+</div>
