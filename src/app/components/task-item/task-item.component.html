@@ -1,1 +1,24 @@
-<p>task-item works!</p>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ shortTaskName() }} </mat-panel-title>
+      <mat-panel-description>Click for actions</mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="full-task">
+      {{ taskName }}
+    </div>
+
+    <div class="action-container">
+      <button mat-fab extended class="done">
+        <mat-icon>task_alt</mat-icon> Mark As Done
+      </button>
+      <button mat-fab extended class="due-date">
+        <mat-icon>edit_calendar</mat-icon>Set Due Date
+      </button>
+      <button mat-fab extended class="delete">
+        <mat-icon>delete</mat-icon> Delete
+      </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

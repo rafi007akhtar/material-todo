@@ -1,0 +1,18 @@
+.full-task {
+  margin-bottom: 2rem;
+}
+
+.action-container {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    &.done {
+      background-color: green;
+    }
+    &.delete {
+      background-color: crimson;
+    }
+  }
+}
