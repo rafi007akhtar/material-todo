@@ -7,19 +7,27 @@
     </button>
   </div>
 
-  <mat-form-field class="categories-new" *ngIf="addingNewCategory()">
-    <mat-label>Press enter or tick</mat-label>
-    <input
-      matInput
-      [(ngModel)]="newCategoryName"
-      autofocus
-      #newCatInp
-      (keydown)="onNewCatInputChange($event)"
-    />
-    <button matSuffix mat-icon-button (click)="addNewCategory()">
-      <mat-icon>add_task</mat-icon>
-    </button>
-  </mat-form-field>
+  <div class="categories-new">
+    <mat-form-field class="categories-new-field" *ngIf="addingNewCategory()">
+      <mat-label>Press enter or tick</mat-label>
+      <input
+        matInput
+        [(ngModel)]="newCategoryName"
+        autofocus
+        #newCatInp
+        (keydown)="onNewCatInputChange($event)"
+      />
+      <button matSuffix mat-icon-button (click)="addNewCategory()">
+        <mat-icon>add_task</mat-icon>
+      </button>
+    </mat-form-field>
+    <p
+      *ngIf="categoryAlreadyExists && addingNewCategory()"
+      class="categories-new-error"
+    >
+      This category already exists. Please enter a unique value.
+    </p>
+  </div>
 
   <mat-selection-list
     role="list"

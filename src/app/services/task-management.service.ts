@@ -47,11 +47,19 @@ export class TaskManagementService {
   }
 
   addNewCategory(newCategoryName: string) {
+    const categoryAlreadyExists = !!this.allCategories.filter(
+      (cat) => cat.name.toLowerCase() === newCategoryName.toLowerCase()
+    ).length;
+    if (categoryAlreadyExists) {
+      return true;
+    }
+
     const newCategory: CategoryType = {
       name: newCategoryName,
       numberOfTasks: 0,
       selected: false,
     };
     this.setCategories([...this.allCategories, newCategory]);
+    return false;
   }
 }

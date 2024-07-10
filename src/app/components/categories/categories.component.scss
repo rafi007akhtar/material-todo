@@ -12,8 +12,16 @@
   }
 
   &-new {
-    max-width: 100%;
-    margin-top: 1rem;
+    &-field {
+      max-width: 100%;
+      margin-top: 1rem;
+    }
+    &-error {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+      font-weight: 500;
+      color: #974646;
+    }
   }
 
   &-add {

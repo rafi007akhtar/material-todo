@@ -24,6 +24,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   allCatsSup: Subscription | undefined;
   addingNewCategory = signal(false);
   newCategoryName: string = '';
+  categoryAlreadyExists = false;
 
   @ViewChild('newCatInp') newCatInp!: ElementRef;
 
@@ -48,6 +49,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   onNewCatInputChange(evt: KeyboardEvent) {
+    this.categoryAlreadyExists = false;
     if (evt.key === 'Enter') {
       this.addNewCategory();
     }
@@ -59,8 +61,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   addNewCategory() {
     if (this.newCategoryName?.trim()) {
-      this.tms.addNewCategory(this.newCategoryName?.trim());
-      this.newCategoryName = '';
+      this.categoryAlreadyExists = this.tms.addNewCategory(
+        this.newCategoryName?.trim()
+      );
+      if (!this.categoryAlreadyExists) {
+        this.newCategoryName = '';
+      }
     }
   }
 
