@@ -8,7 +8,8 @@ import { initCategories } from '../data/dummy-data';
   providedIn: 'root',
 })
 export class TaskManagementService {
-  userTasks: Tasks = [];
+  localTasks = localStorage.getItem('tasks') || '';
+  userTasks: Tasks = this.localTasks.length ? JSON.parse(this.localTasks) : [];
   userTasks$ = new BehaviorSubject<Tasks>(this.userTasks);
 
   allCategories = [...initCategories];
@@ -20,11 +21,12 @@ export class TaskManagementService {
   setTasks(tasks: Tasks) {
     this.userTasks = tasks;
     this.userTasks$.next(this.userTasks);
+    this.saveTasksToLocal();
   }
 
   addTask(task: Task) {
-    this.userTasks = [...this.userTasks, task];
-    this.userTasks$.next(this.userTasks);
+    const tasks = [...this.userTasks, task];
+    this.setTasks(tasks);
   }
 
   updateTaskWithIdTo(newTask: Task) {
@@ -80,5 +82,9 @@ export class TaskManagementService {
     };
     this.setCategories([...this.allCategories, newCategory]);
     return false;
+  }
+
+  saveTasksToLocal() {
+    localStorage.setItem('tasks', JSON.stringify(this.userTasks));
   }
 }
