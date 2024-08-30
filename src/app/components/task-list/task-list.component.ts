@@ -23,7 +23,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.selectedCategory = this.tms.getSelectedCategorySync();
 
     this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
-      console.log({ cat });
       this.selectedCategory = cat;
       console.log('all tasks on radio change:', this.allTasks);
       this.updateTalksToShow();
