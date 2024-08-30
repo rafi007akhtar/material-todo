@@ -26,17 +26,14 @@ export class NewTaskComponent implements OnInit {
     });
 
     this.newTaskForm = new FormGroup({
-      taskName: new FormControl(
-        ''
-        // [Validators.required]
-      ),
+      taskName: new FormControl(''),
     });
   }
 
   onFormEdit(evt: KeyboardEvent) {
     if (evt.key === 'Enter' && !evt.shiftKey) {
+      evt.preventDefault();
       this.formSubmit();
-      this.taskNameField?.setValue('');
     }
   }
 
@@ -48,13 +45,11 @@ export class NewTaskComponent implements OnInit {
     }
 
     const taskToAdd: Task = {
-      name: newTaskName.trim(),
+      name: newTaskName,
       categoryName: this.selectedCategory.name,
       id: `${Math.random()}${new Date().toISOString()}`,
     };
     this.tms.addTask(taskToAdd);
-    this.taskNameField?.reset();
-    this.taskNameField?.setValue('');
     this.newTaskForm.reset();
   }
 

@@ -9,16 +9,16 @@
       appearance="outline"
       subscriptSizing="dynamic"
     >
-      <mat-label>New Task</mat-label>
-      <input
+      <mat-label>Add New Task</mat-label>
+      <textarea
         type="text"
         matInput
         formControlName="taskName"
         autofocus
         (keydown)="onFormEdit($event)"
         class="new-task-input"
-        placeholder="Type new task and press enter, or click the arrow to the right."
-      />
+        placeholder="Type new task and press enter, or click the arrow to the right. To add a new line, press shift + enter."
+      ></textarea>
       <button class="new-task-btn" mat-icon-button matSuffix>
         <mat-icon [inline]="true">arrow_circle_right</mat-icon>
       </button>
