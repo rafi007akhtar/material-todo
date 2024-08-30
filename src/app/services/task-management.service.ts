@@ -27,6 +27,25 @@ export class TaskManagementService {
     this.userTasks$.next(this.userTasks);
   }
 
+  updateTaskWithIdTo(newTask: Task) {
+    let taskInd = -1;
+    let taskToChange: Task;
+    for (let ind = 0; ind < this.userTasks.length; ind++) {
+      const task = this.userTasks[ind];
+      if (task.id === newTask.id) {
+        taskInd = ind;
+        taskToChange = task;
+        break;
+      }
+    }
+    if (taskInd === -1) {
+      return;
+    }
+
+    this.userTasks.splice(taskInd, 1, newTask);
+    this.setTasks(this.userTasks);
+  }
+
   setCategories(categories: CategoriesType) {
     this.allCategories = categories;
     this.allCategories$.next(this.allCategories);
