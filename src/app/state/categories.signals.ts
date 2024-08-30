@@ -1,16 +1,10 @@
 import { signal } from '@angular/core';
-
-export interface CategoryType {
-  name: string;
-  numberOfTasks: number;
-}
-
-export type CategoriesType = Array<CategoryType>;
+import { CategoryType, CategoriesType } from '../models/category.model';
 
 const initCategories: Array<CategoryType> = [];
 
 export const allCategories = signal<CategoriesType>([
-  { name: 'test 1', numberOfTasks: 0 },
+  { name: 'Default', numberOfTasks: 0, selected: true },
   { name: 'test 2', numberOfTasks: 0 },
   { name: 'test 2', numberOfTasks: 0 },
   { name: 'test 2', numberOfTasks: 0 },
