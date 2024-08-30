@@ -8,11 +8,17 @@ import { initCategories } from '../data/dummy-data';
   providedIn: 'root',
 })
 export class TaskManagementService {
-  localTasks = localStorage.getItem('tasks') || '';
+  TASKS_KEY = 'tasks';
+  CATEGORIES_KEY = 'categories';
+
+  localTasks = localStorage.getItem(this.TASKS_KEY) || '';
   userTasks: Tasks = this.localTasks.length ? JSON.parse(this.localTasks) : [];
   userTasks$ = new BehaviorSubject<Tasks>(this.userTasks);
 
-  allCategories = [...initCategories];
+  localCategories = localStorage.getItem(this.CATEGORIES_KEY) || '';
+  allCategories = this.localCategories.length
+    ? JSON.parse(this.localCategories)
+    : [...initCategories];
   allCategories$ = new BehaviorSubject<CategoriesType>(this.allCategories);
   selectedCategory$ = new Subject<CategoryType>();
 
@@ -51,6 +57,7 @@ export class TaskManagementService {
   setCategories(categories: CategoriesType) {
     this.allCategories = categories;
     this.allCategories$.next(this.allCategories);
+    this.saveCategoriesToLocal();
   }
 
   setSelectedCategory(name: string) {
@@ -63,13 +70,16 @@ export class TaskManagementService {
   }
 
   getSelectedCategorySync(): CategoryType {
-    const selectedCat = this.allCategories.find((val) => val.selected === true);
+    const selectedCat = this.allCategories.find(
+      (val: CategoryType) => val.selected === true
+    );
     return selectedCat as CategoryType;
   }
 
   addNewCategory(newCategoryName: string) {
     const categoryAlreadyExists = !!this.allCategories.filter(
-      (cat) => cat.name.toLowerCase() === newCategoryName.toLowerCase()
+      (cat: CategoryType) =>
+        cat.name.toLowerCase() === newCategoryName.toLowerCase()
     ).length;
     if (categoryAlreadyExists) {
       return true;
@@ -85,6 +95,13 @@ export class TaskManagementService {
   }
 
   saveTasksToLocal() {
-    localStorage.setItem('tasks', JSON.stringify(this.userTasks));
+    localStorage.setItem(this.TASKS_KEY, JSON.stringify(this.userTasks));
+  }
+
+  saveCategoriesToLocal() {
+    localStorage.setItem(
+      this.CATEGORIES_KEY,
+      JSON.stringify(this.allCategories)
+    );
   }
 }
