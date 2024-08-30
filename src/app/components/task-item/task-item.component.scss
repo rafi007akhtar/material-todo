@@ -1,5 +1,52 @@
+.task-item-accordion {
+  // margin-bottom: 2rem;
+  .header {
+    background-color: #f7e5e5;
+  }
+}
+
 .full-task {
   margin-bottom: 2rem;
+  margin-top: 2rem;
+  &-editor {
+    display: block;
+  }
+}
+
+.task {
+  // &-item-desc {
+  //   justify-content: end;
+  // }
+
+  &-editors {
+    margin-bottom: 3rem;
+    button {
+      &.save-changes {
+        margin-right: 2rem;
+        background-color: #f4d790;
+      }
+      &.not-editing {
+        margin-right: 2rem;
+      }
+      &.done {
+        background-color: green;
+        color: white;
+      }
+      &.due-date {
+        background-color: #ff4081;
+        color: white;
+      }
+      &.delete {
+        background-color: crimson;
+        color: white;
+      }
+      mat-icon {
+        font-size: 2.2rem;
+        height: 2rem;
+        width: 2.5rem;
+      }
+    }
+  }
 }
 
 .action-container {
@@ -8,6 +55,7 @@
   button {
     margin-left: 1rem;
     margin-right: 1rem;
+    transform: scale(0.75);
     &.done {
       background-color: green;
     }

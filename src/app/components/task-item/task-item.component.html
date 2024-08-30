@@ -1,24 +1,100 @@
 <mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
+  <mat-expansion-panel class="task-item-accordion">
+    <mat-expansion-panel-header class="header">
       <mat-panel-title> {{ shortTaskName() }} </mat-panel-title>
-      <mat-panel-description>Click for actions</mat-panel-description>
+
+      <mat-panel-description class="task-item-desc">
+        <div>Click for more.</div>
+        <div class="action-container">
+          <!-- <button mat-fab extended class="done">
+            <mat-icon>task_alt</mat-icon> Mark As Done
+          </button>
+          <button mat-fab extended class="due-date">
+            <mat-icon>edit_calendar</mat-icon>Set Due Date
+          </button>
+          <button mat-fab extended class="delete">
+            <mat-icon>delete</mat-icon> Delete
+          </button> -->
+        </div>
+      </mat-panel-description>
     </mat-expansion-panel-header>
 
     <div class="full-task">
-      {{ taskName }}
-    </div>
+      <div class="task-editors">
+        <ng-container>
+          <button
+            mat-raised-button
+            (click)="taskEditorClick('edit')"
+            *ngIf="!isEditingTask()"
+            class="edit-trigger not-editing"
+          >
+            <mat-icon>edit_note</mat-icon>
+            Edit Task
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="!isEditingTask()"
+            class="not-editing done"
+          >
+            <mat-icon>task_alt</mat-icon>
+            Mark As Done
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="!isEditingTask()"
+            class="not-editing due-date"
+          >
+            <mat-icon>edit_calendar</mat-icon>
+            Set Due Date
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="!isEditingTask()"
+            class="not-editing delete"
+          >
+            <mat-icon>delete</mat-icon>
+            Delete
+          </button>
+        </ng-container>
 
-    <div class="action-container">
-      <button mat-fab extended class="done">
-        <mat-icon>task_alt</mat-icon> Mark As Done
-      </button>
-      <button mat-fab extended class="due-date">
-        <mat-icon>edit_calendar</mat-icon>Set Due Date
-      </button>
-      <button mat-fab extended class="delete">
-        <mat-icon>delete</mat-icon> Delete
-      </button>
+        <ng-container>
+          <button
+            mat-raised-button
+            (click)="taskEditorClick('save')"
+            *ngIf="isEditingTask()"
+            class="save-changes"
+          >
+            <mat-icon>save</mat-icon>
+            Save Changes
+          </button>
+          <button
+            mat-raised-button
+            (click)="taskEditorClick('discard')"
+            *ngIf="isEditingTask()"
+            class="discard-changes"
+          >
+            <mat-icon>cancel</mat-icon>
+            Discard changes
+          </button>
+        </ng-container>
+      </div>
+
+      <div
+        class="full-task-text"
+        *ngIf="!isEditingTask()"
+        [innerText]="task.name"
+      ></div>
+      <mat-form-field class="full-task-editor" *ngIf="isEditingTask()">
+        <textarea
+          matInput
+          autofocus
+          [value]="task.name"
+          class="full-task-editor-input"
+          #editTaskField
+          rows="5"
+          (keydown)="taskEditorInputKeyPress($event)"
+        ></textarea>
+      </mat-form-field>
     </div>
   </mat-expansion-panel>
 </mat-accordion>
