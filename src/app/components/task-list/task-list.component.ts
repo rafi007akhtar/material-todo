@@ -24,14 +24,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
       this.selectedCategory = cat;
-      console.log('all tasks on radio change:', this.allTasks);
+      // console.log('all tasks on radio change:', this.allTasks);
       this.updateTalksToShow();
     });
 
     this.allTasksSup = this.tms.userTasks$.subscribe((tasks) => {
       this.allTasks = tasks;
       this.updateTalksToShow();
-      console.log('all tasks on new task addition:', this.allTasks);
+      // console.log('all tasks on new task addition:', this.allTasks);
     });
   }
 
