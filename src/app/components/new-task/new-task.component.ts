@@ -23,6 +23,12 @@ export class NewTaskComponent implements OnInit {
 
     this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
       this.selectedCategory = cat;
+
+      // TODO: rewrite this using native element directive
+      const newInputElem = document.querySelector(
+        '.new-task-input'
+      ) as HTMLElement;
+      newInputElem?.focus();
     });
 
     this.newTaskForm = new FormGroup({
