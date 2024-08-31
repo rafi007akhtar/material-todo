@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Tasks } from '../../models/task.model';
+import { Task, Tasks } from '../../models/task.model';
 import { Subscription } from 'rxjs';
 import { TaskManagementService } from '../../services/task-management.service';
 import { CategoryType } from '../../models/category.model';
@@ -24,21 +24,19 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
       this.selectedCategory = cat;
-      // console.log('all tasks on radio change:', this.allTasks);
-      this.updateTalksToShow();
+      this.updateTasksToShow();
     });
 
     this.allTasksSup = this.tms.userTasks$.subscribe((tasks) => {
       this.allTasks = tasks;
-      this.updateTalksToShow();
-      // console.log('all tasks on new task addition:', this.allTasks);
+      this.updateTasksToShow();
     });
   }
 
-  updateTalksToShow() {
-    this.tasksToShow = this.allTasks.filter(
-      (task) => task.categoryName === this.selectedCategory.name
-    );
+  updateTasksToShow() {
+    this.tasksToShow = this.allTasks
+      .filter((task) => task.categoryName === this.selectedCategory.name)
+      .sort((taskA: Task) => (!!taskA.completed ? 1 : -1));
   }
 
   ngOnDestroy(): void {
