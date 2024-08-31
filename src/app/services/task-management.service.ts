@@ -8,19 +8,23 @@ import { initCategories } from '../data/dummy-data';
   providedIn: 'root',
 })
 export class TaskManagementService {
-  TASKS_KEY = 'tasks';
-  CATEGORIES_KEY = 'categories';
+  private TASKS_KEY = 'tasks';
+  private CATEGORIES_KEY = 'categories';
 
-  localTasks = localStorage.getItem(this.TASKS_KEY) || '';
-  userTasks: Tasks = this.localTasks.length ? JSON.parse(this.localTasks) : [];
-  userTasks$ = new BehaviorSubject<Tasks>(this.userTasks);
+  private localTasks = localStorage.getItem(this.TASKS_KEY) || '';
+  private userTasks: Tasks = this.localTasks.length
+    ? JSON.parse(this.localTasks)
+    : [];
+  public userTasks$ = new BehaviorSubject<Tasks>(this.userTasks);
 
-  localCategories = localStorage.getItem(this.CATEGORIES_KEY) || '';
-  allCategories = this.localCategories.length
+  private localCategories = localStorage.getItem(this.CATEGORIES_KEY) || '';
+  private allCategories = this.localCategories.length
     ? JSON.parse(this.localCategories)
     : [...initCategories];
-  allCategories$ = new BehaviorSubject<CategoriesType>(this.allCategories);
-  selectedCategory$ = new Subject<CategoryType>();
+  public allCategories$ = new BehaviorSubject<CategoriesType>(
+    this.allCategories
+  );
+  public selectedCategory$ = new Subject<CategoryType>();
 
   constructor() {}
 
@@ -37,12 +41,10 @@ export class TaskManagementService {
 
   updateTaskWithIdTo(newTask: Task) {
     let taskInd = -1;
-    let taskToChange: Task;
     for (let ind = 0; ind < this.userTasks.length; ind++) {
       const task = this.userTasks[ind];
       if (task.id === newTask.id) {
         taskInd = ind;
-        taskToChange = task;
         break;
       }
     }
@@ -51,6 +53,23 @@ export class TaskManagementService {
     }
 
     this.userTasks.splice(taskInd, 1, newTask);
+    this.setTasks(this.userTasks);
+  }
+
+  deleteTask(taskId: string) {
+    let taskInd = -1;
+    for (let ind = 0; ind < this.userTasks.length; ind++) {
+      const task = this.userTasks[ind];
+      if (task.id === taskId) {
+        taskInd = ind;
+        break;
+      }
+    }
+    if (taskInd === -1) {
+      return;
+    }
+
+    this.userTasks.splice(taskInd, 1);
     this.setTasks(this.userTasks);
   }
 

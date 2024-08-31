@@ -2,7 +2,8 @@ export interface Task {
   name: string;
   categoryName: string;
   id: string;
-  dueDate?: string;
+  completed: boolean;
+  dueDate?: Date;
 }
 
 export type Tasks = Array<Task>;

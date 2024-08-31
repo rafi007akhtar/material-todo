@@ -1,7 +1,13 @@
-.task-item-accordion {
-  // margin-bottom: 2rem;
-  .header {
-    background-color: #f7e5e5;
+.task-item {
+  &-accordion {
+    margin-bottom: 2rem;
+    margin-right: 3rem;
+    .header {
+      background-color: #f7e5e5;
+    }
+    .completed {
+      text-decoration: line-through;
+    }
   }
 }
 
@@ -46,6 +52,9 @@
         width: 2.5rem;
       }
     }
+    &-calendar {
+      width: 30rem;
+    }
   }
 }
 
@@ -63,4 +72,10 @@
       background-color: crimson;
     }
   }
+}
+
+.due-date-calendar {
+  // visibility: hidden;
+  width: 0;
+  overflow: hidden;
 }

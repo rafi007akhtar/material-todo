@@ -51,6 +51,7 @@ export class NewTaskComponent implements OnInit {
       name: newTaskName,
       categoryName: this.selectedCategory.name,
       id: `${Math.random()}${new Date().toISOString()}`,
+      completed: false,
     };
     this.tms.addTask(taskToAdd);
     this.newTaskForm.reset();
