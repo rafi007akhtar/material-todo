@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { CategoryType } from '../../models/category.model';
 import { Subscription } from 'rxjs';
 import { TaskManagementService } from '../../services/task-management.service';
-import { initCategories } from '../../data/dummy-data';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -17,6 +16,7 @@ export class NewTaskComponent implements OnInit {
   newTaskForm: FormGroup<any> = new FormGroup({});
   selectedCategory!: CategoryType;
   selectedCategorySup: Subscription | undefined;
+  @ViewChild('newTaskInput') newTaskInputElem!: ElementRef;
 
   ngOnInit(): void {
     this.selectedCategory = this.tms.getSelectedCategorySync();
@@ -24,11 +24,8 @@ export class NewTaskComponent implements OnInit {
     this.selectedCategorySup = this.tms.selectedCategory$.subscribe((cat) => {
       this.selectedCategory = cat;
 
-      // TODO: rewrite this using native element directive
-      const newInputElem = document.querySelector(
-        '.new-task-input'
-      ) as HTMLElement;
-      newInputElem?.focus();
+      // The New Task input element should be in focus when a new category is selected
+      this.newTaskInputElem?.nativeElement.focus();
     });
 
     this.newTaskForm = new FormGroup({
